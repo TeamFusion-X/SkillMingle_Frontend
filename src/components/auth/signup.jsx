@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, TextField, Button, Box } from '@mui/material';
+import { StyledBox } from '../../utils/theme';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -33,12 +34,14 @@ const Signup = () => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+    >
       <Card style={{ width: 400, padding: 20 }}>
         <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
-            Signup
-          </Typography>
           <form onSubmit={handleSubmit}>
             <Box mb={2}>
               <TextField

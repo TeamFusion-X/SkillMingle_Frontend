@@ -1,9 +1,10 @@
 
 function LandingPage(){
   return (
-    <>
-      hello
-    </>
+      <>
+        hello
+      </>
+    
   )
 }
 
