@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Card, CardContent, Typography, TextField, Button, Box, Link } from '@mui/material';
 
@@ -8,6 +9,7 @@ const Login = () => {
     password: '',
   });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +23,7 @@ const Login = () => {
     try {
       const response = await axios.post(`${api_url}/users/login`, formData);
       setMessage(`Login successful: ${response.data.message}`);
+      navigate('/dashboard');
     } catch (error) {
       setMessage(
         error.response?.data?.message || 'An error occurred. Please try again.'
