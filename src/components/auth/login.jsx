@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -10,12 +10,15 @@ import {
 	Box,
 } from "@mui/material";
 
+
 const Login = () => {
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 	});
 	const [message, setMessage] = useState("");
+  
+  const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -32,7 +35,7 @@ const Login = () => {
 				formData
 			);
 
-			console.log(response);
+			navigate('/dashboard');
 			setMessage(`Login successful: ${response.data.message}`);
 		} catch (error) {
 			setMessage(

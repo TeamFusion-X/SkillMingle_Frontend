@@ -9,6 +9,7 @@ import About from "./components/misc/about";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./utils/theme";
 import { BackgroundBox } from "./utils/backgroundBox";
+import DashBoard from "./components/dashboard/DashBoard";
 
 function App() {
 	return (
@@ -27,7 +28,8 @@ function App() {
 					<Route
 						path="/resetPassword/:token"
 						element={<ResetPassword />}
-					/>
+						/>
+					<Route path="/dashboard" element={<DashBoard />} />
 					<Route path="/about" element={<About />} />
 					<Route path="*" element={<h1>404 Not Found</h1>} />
 				</Routes>
