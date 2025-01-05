@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link , useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	Card,
 	CardContent,
@@ -10,15 +10,14 @@ import {
 	Box,
 } from "@mui/material";
 
-
 const Login = () => {
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 	});
 	const [message, setMessage] = useState("");
-  
-  const navigate = useNavigate();
+
+	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -32,10 +31,11 @@ const Login = () => {
 		try {
 			const response = await axios.post(
 				`${api_url}/users/login`,
-				formData
+				formData,
+				{ withCredentials: true }
 			);
 
-			navigate('/dashboard');
+			navigate("/dashboard");
 			setMessage(`Login successful: ${response.data.message}`);
 		} catch (error) {
 			setMessage(
@@ -46,17 +46,8 @@ const Login = () => {
 	};
 
 	return (
-		<Box>
-			<Card
-				style={{
-					width: 400,
-					padding: 20,
-					backgroundColor: "rgba(255, 255, 255, 0.2)",
-					backdropFilter: "blur(15px)",
-					borderRadius: "12px",
-					boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
-				}}
-			>
+		<Box style={{ paddingTop : "40px"}}>
+			<Card style={{ width: 400 }}>
 				<CardContent>
 					<Typography
 						variant="h5"
@@ -119,7 +110,6 @@ const Login = () => {
 						>
 							<Link
 								to="/forgotPassword"
-								
 								style={{
 									color: "#00FFFF",
 									textDecoration: "none",

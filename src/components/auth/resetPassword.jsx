@@ -42,17 +42,8 @@ const ResetPassword = () => {
 	};
 
 	return (
-		<Box>
-			<Card
-				style={{
-					width: 400,
-					padding: 20,
-					backgroundColor: "rgba(255, 255, 255, 0.2)",
-					backdropFilter: "blur(15px)",
-					borderRadius: "12px",
-					boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
-				}}
-			>
+		<Box style={{ paddingTop : "40px"}}>
+			<Card style={{ width: 400 }}>
 				<CardContent>
 					<Typography
 						variant="h5"

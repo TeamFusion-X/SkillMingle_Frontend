@@ -5,7 +5,7 @@ const NavbarLP = () => {
   const location = useLocation();
 
   return (
-    <AppBar position="fixed" style={{ background: "transparent", boxShadow: "none" }}>
+    <AppBar position="fixed" style={{ backgroundColor: "rgba(67, 68, 68, 1.0)", boxShadow: "none" }}>
       <Toolbar>
         <Typography
           variant="h6"
@@ -17,9 +17,10 @@ const NavbarLP = () => {
         <Button
           component={Link}
           to="/"
-          color="inherit"
+          color= "inherit"
           style={{
             marginRight: "10px",
+            textTransform : "capitalize",
             textDecoration: location.pathname === "/" ? "underline" : "none",
           }}
         >
@@ -32,6 +33,7 @@ const NavbarLP = () => {
           color="inherit"
           style={{
             marginRight: "10px",
+            textTransform : "capitalize",
             textDecoration: location.pathname === "/about" ? "underline" : "none",
           }}
         >
@@ -44,6 +46,7 @@ const NavbarLP = () => {
           color="inherit"
           style={{
             marginRight: "10px",
+            textTransform : "capitalize",
             textDecoration: location.pathname === "/login" ? "underline" : "none",
           }}
         >
@@ -55,6 +58,7 @@ const NavbarLP = () => {
           to="/signup"
           color="inherit"
           style={{
+            textTransform : "capitalize",
             textDecoration: location.pathname === "/signup" ? "underline" : "none",
           }}
         >

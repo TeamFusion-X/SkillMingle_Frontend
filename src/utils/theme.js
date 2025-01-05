@@ -16,7 +16,7 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: 'rgba(173, 216, 230, 0.3)', 
-          backdropFilter: 'blur(10px)',
+          backdropFilter: 'blur(15px)',
           borderRadius: '12px',
           padding: '20px',
           boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',

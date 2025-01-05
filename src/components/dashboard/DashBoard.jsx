@@ -1,9 +1,8 @@
-import DashBoardNavbar from "./DashboardNavbar"
 
 const DashBoard = () => {
   return (
     <div>
-        <DashBoardNavbar />
+        hello
     </div>
   )
 }

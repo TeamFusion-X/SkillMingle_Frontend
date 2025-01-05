@@ -11,7 +11,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Badge from '@mui/material/Badge';
 
-export default function DashboardNavbar() {
+export default function NavbarDB() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleProfileMenuOpen = (event) => {
