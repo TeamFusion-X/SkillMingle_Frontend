@@ -40,6 +40,7 @@ export const theme = createTheme({
       color: "rgba(255, 255, 255, 0.7)", // Muted text
     },
   },
+  
 });
 
 export const StyledBox = styled(Box)(({ theme }) => ({

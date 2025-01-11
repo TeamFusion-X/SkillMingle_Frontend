@@ -12,9 +12,10 @@ import { theme } from "./utils/theme";
 import { BackgroundBox } from "./utils/backgroundBox";
 import DashBoard from "./components/dashboard/dashBoard";
 import NavbarDB from "./components/dashboard/navbarDB";
+import Profile from "./components/user/profile";
 
 function App() {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
 
 	useEffect(() => {
 
@@ -29,7 +30,7 @@ function App() {
 					<NavbarDB />
 					<Routes>
 						<Route path="/dashboard" element={<DashBoard />} />
-
+						<Route path="/profile" element = {<Profile />} />
 					</Routes>
 				</BackgroundBox>
 			) : (

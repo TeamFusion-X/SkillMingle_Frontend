@@ -1,18 +1,11 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import Badge from '@mui/material/Badge';
+import { AppBar, Box, Toolbar, IconButton, Typography, MenuItem, Menu, Badge } from '@mui/material';
+import { Menu as MenuIcon, AccountCircle, Notifications as NotificationsIcon } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavbarDB() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -21,6 +14,11 @@ export default function NavbarDB() {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  const handleProfileClick = () => {
+    navigate('/profile')
+    setAnchorEl(null);
+  }
 
   return (
     <Box sx={{ 
@@ -93,7 +91,7 @@ export default function NavbarDB() {
             },
         }}
       >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       </Menu>
     </Box>
