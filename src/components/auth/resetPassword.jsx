@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import {
 	Card,
 	CardContent,
@@ -9,36 +8,27 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { resetPassword } from "../../redux/actions/authActions";
 
 const ResetPassword = () => {
 	const { token } = useParams();
+	const dispatch = useDispatch();
+	const message = useSelector((state) => state.auth.message || state.auth.error);
+
 	const [formData, setFormData] = useState({
 		password: "",
 		passwordConfirm: "",
 	});
-	const [message, setMessage] = useState("");
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
 
-	const api_url = import.meta.env.VITE_API_URL;
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await axios.patch(
-				`${api_url}/users/resetPassword/${token}`,
-				formData
-			);
-			setMessage(response.data.message || "Password reset successful!");
-		} catch (error) {
-			setMessage(
-				error.response?.data?.message ||
-					"An error occurred. Please try again."
-			);
-		}
+		dispatch(resetPassword(formData, token));
 	};
 
 	return (

@@ -15,41 +15,41 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const UnauthenticatedRoutes = () => (
-  <BackgroundBox>
-    <NavbarLP />
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgotPassword" element={<ForgotPassword />} />
-      <Route path="/resetPassword/:token" element={<ResetPassword />} />
-      <Route path="/about" element={<About />} />
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  </BackgroundBox>
+	<BackgroundBox>
+		<NavbarLP />
+		<Routes>
+			<Route path="/" element={<LandingPage />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/signup" element={<Signup />} />
+			<Route path="/forgotPassword" element={<ForgotPassword />} />
+			<Route path="/resetPassword/:token" element={<ResetPassword />} />
+			<Route path="/about" element={<About />} />
+			<Route path="*" element={<Navigate to="/" />} />
+		</Routes>
+	</BackgroundBox>
 );
 
 const AuthenticatedRoutes = () => (
-  <BackgroundBox>
-    <NavbarDB />
-    <Routes>
-      <Route path="/dashboard" element={<DashBoard />} />
-      <Route path="*" element={<Navigate to="/dashboard" />} />
-    </Routes>
-  </BackgroundBox>
+	<BackgroundBox>
+		<NavbarDB />
+		<Routes>
+			<Route path="/dashboard" element={<DashBoard />} />
+			<Route path="*" element={<Navigate to="/dashboard" />} />
+		</Routes>
+	</BackgroundBox>
 );
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const loading = useSelector((state) => state.spinner.loading);
+	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+	const loading = useSelector((state) => state.spinner.loading);
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {loading && <Spinner />}
-      {isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
-    </ThemeProvider>
-  );
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			{loading && <Spinner />}
+			{isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+		</ThemeProvider>
+	);
 }
 
 export default App;

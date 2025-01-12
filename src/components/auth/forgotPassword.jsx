@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 import {
 	Card,
 	CardContent,
@@ -8,27 +8,17 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
+import { forgotPassword } from "../../redux/actions/authActions";
 
 const ForgotPassword = () => {
-	const [email, setEmail] = useState("");
-	const [message, setMessage] = useState("");
+	const message = useSelector((state) => state.auth.message || state.auth.error)
+	const dispatch = useDispatch();
 
-	const api_url = import.meta.env.VITE_API_URL;
+	const [email, setEmail] = useState("");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await axios.post(
-				`${api_url}/users/forgotPassword`,
-				{ email }
-			);
-			setMessage(response.data.message);
-		} catch (error) {
-			setMessage(
-				error.response?.data?.message ||
-					"An error occurred. Please try again."
-			);
-		}
+		dispatch(forgotPassword(email));
 	};
 
 	return (

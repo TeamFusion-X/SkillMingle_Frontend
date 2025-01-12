@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import {
 	Card,
 	CardContent,
@@ -8,8 +7,13 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { signupUser } from "../../redux/actions/authActions";
 
 const Signup = () => {
+	const dispatch = useDispatch();
+	const message = useSelector((state) => state.auth.error);
+
 	const [formData, setFormData] = useState({
 		username: "",
 		name: "",
@@ -18,33 +22,18 @@ const Signup = () => {
 		passwordConfirm: "",
 	});
 
-	const [message, setMessage] = useState("");
-
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
 
-	const api_url = import.meta.env.VITE_API_URL;
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await axios.post(
-				`${api_url}/users/signup`,
-				formData
-			); // Replace with your API endpoint
-			setMessage(`Signup successful: ${response.data.message}`);
-		} catch (error) {
-			setMessage(
-				error.response?.data?.message ||
-					"An error occurred. Please try again."
-			);
-		}
+		dispatch(signupUser(formData));
 	};
 
 	return (
-		<Box style={{ paddingTop : "40px"}}>
+		<Box style={{ paddingTop: "40px" }}>
 			<Card style={{ width: 400 }}>
 				<CardContent>
 					<Typography
