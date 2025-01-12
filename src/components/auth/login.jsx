@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	Card,
 	CardContent,
@@ -9,40 +9,27 @@ import {
 	Button,
 	Box,
 } from "@mui/material";
+import { loginUser } from "../../redux/actions/authActions";
 
 const Login = () => {
+	const dispatch = useDispatch();
+
+	const message = useSelector((state) => state.auth.error)
+	
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 	});
-	const [message, setMessage] = useState("");
-
-	const navigate = useNavigate();
-
+	
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
 	};
 
-	const api_url = import.meta.env.VITE_API_URL;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const response = await axios.post(
-				`${api_url}/users/login`,
-				formData,
-				{ withCredentials: true }
-			);
-
-			navigate("/dashboard");
-			setMessage(`Login successful: ${response.data.message}`);
-		} catch (error) {
-			setMessage(
-				error.response?.data?.message ||
-					"An error occurred. Please try again."
-			);
-		}
+		dispatch(loginUser(formData));		
 	};
 
 	return (
