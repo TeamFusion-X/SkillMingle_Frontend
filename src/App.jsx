@@ -15,6 +15,7 @@ import { BackgroundBox } from "./utils/backgroundBox";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { checkLogin } from "./redux/actions/authActions";
+import Profile from "./components/user/profile";
 
 const UnauthenticatedRoutes = () => (
 	<BackgroundBox>
@@ -36,6 +37,7 @@ const AuthenticatedRoutes = () => (
 		<NavbarDB />
 		<Routes>
 			<Route path="/dashboard" element={<DashBoard />} />
+			<Route path="/profile" element={<Profile />} />
 			<Route path="*" element={<Navigate to="/dashboard" />} />
 		</Routes>
 	</BackgroundBox>
