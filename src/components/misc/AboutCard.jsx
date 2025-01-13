@@ -1,7 +1,18 @@
+import PropTypes from "prop-types";
 import { Card, Typography, Button, Grid, Box } from "@mui/material";
-import { Facebook, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
+import { GitHub, Instagram, LinkedIn, Twitter } from "@mui/icons-material";
 
-const AboutCard = () => {
+const AboutCard = ({
+	profilePhoto,
+	name,
+	bio,
+	title,
+	email,
+	github,
+	linkedin,
+	instagram,
+	twitter,
+}) => {
 	return (
 		<Grid item xs={12} sm={6} md={4}>
 			<Card
@@ -14,22 +25,23 @@ const AboutCard = () => {
 					color: "#fff",
 					position: "relative",
 					overflow: "visible",
+					minWidth: "320px",
 					maxWidth: "320px",
 				}}
 			>
-				{/* Profile Image (Square, Half Inside/Outside Card) */}
+				{/* Profile Image */}
 				<Box
 					component="img"
-					src="https://picsum.photos/200"
+					src={profilePhoto}
 					alt="Profile"
 					sx={{
 						width: "140px",
 						height: "140px",
 						position: "absolute",
-						top: "-60px", // Half the height
+						top: "-60px",
 						left: "50%",
 						transform: "translateX(-50%)",
-						borderRadius: "20%", // Optional: for circular image
+						borderRadius: "20%",
 						border: "3px solid white",
 						zIndex: 1,
 					}}
@@ -37,18 +49,17 @@ const AboutCard = () => {
 
 				{/* Name and Title */}
 				<Typography variant="h6" sx={{ fontWeight: "bold", pt: 9 }}>
-					Jacklin Rose
+					{name}
 				</Typography>
 				<Typography
 					variant="body2"
 					sx={{ color: "#fff", marginBottom: "16px" }}
 				>
-					Web Developer
+					{title}
 				</Typography>
 
+				{/* About Section */}
 				<Box sx={{ textAlign: "left" }}>
-					{/* About Section */}
-
 					<Typography
 						variant="body1"
 						fontSize={"30px"}
@@ -56,14 +67,11 @@ const AboutCard = () => {
 					>
 						About Me
 					</Typography>
-
 					<Typography variant="body1" sx={{ marginBottom: "16px" }}>
-						Passionate about technology and innovation, I thrive on
-						solving complex problems and turning ideas into reality.
+						{bio}
 					</Typography>
 
 					{/* Social Media Icons */}
-
 					<Typography
 						variant="body1"
 						fontSize={"30px"}
@@ -72,7 +80,7 @@ const AboutCard = () => {
 							paddingBottom: "5px",
 						}}
 					>
-						Social Media
+						Profile Links
 					</Typography>
 					<Box
 						sx={{
@@ -82,16 +90,35 @@ const AboutCard = () => {
 							marginBottom: "16px",
 						}}
 					>
-						<Facebook sx={{ cursor: "pointer" }} />
-						<Instagram sx={{ cursor: "pointer" }} />
-						<LinkedIn sx={{ cursor: "pointer" }} />
-						<Twitter sx={{ cursor: "pointer" }} />
+						{github && (
+							<GitHub
+								sx={{ cursor: "pointer" }}
+								onClick={() => window.open(github, "_blank")}
+							/>
+						)}
+						{linkedin && (
+							<LinkedIn
+								sx={{ cursor: "pointer" }}
+								onClick={() => window.open(linkedin, "_blank")}
+							/>
+						)}
+						{instagram && (
+							<Instagram
+								sx={{ cursor: "pointer" }}
+								onClick={() => window.open(instagram, "_blank")}
+							/>
+						)}
+						{twitter && (
+							<Twitter
+								sx={{ cursor: "pointer" }}
+								onClick={() => window.open(twitter, "_blank")}
+							/>
+						)}
 					</Box>
 				</Box>
 
 				{/* Contact Button */}
 				<Button
-					variant="contained"
 					sx={{
 						backgroundColor: "White",
 						color: "Black",
@@ -103,12 +130,33 @@ const AboutCard = () => {
 							backgroundColor: "#b0245f",
 						},
 					}}
+					onClick={() => window.open(`mailto:${email}`, "_self")}
 				>
 					Contact Me
 				</Button>
 			</Card>
 		</Grid>
 	);
+};
+
+AboutCard.propTypes = {
+	profilePhoto: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	bio: PropTypes.string,
+	title: PropTypes.string.isRequired,
+	email: PropTypes.string.isRequired,
+	github: PropTypes.string,
+	linkedin: PropTypes.string,
+	instagram: PropTypes.string,
+	twitter: PropTypes.string,
+};
+
+AboutCard.defaultProps = {
+	bio: "No bio provided.",
+	github: null,
+	linkedin: null,
+	instagram: null,
+	twitter: null,
 };
 
 export default AboutCard;
