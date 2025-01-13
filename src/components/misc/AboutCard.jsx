@@ -27,6 +27,11 @@ const AboutCard = ({
 					overflow: "visible",
 					minWidth: "320px",
 					maxWidth: "320px",
+					transition: "transform 0.3s ease, box-shadow 0.3s ease",
+					"&:hover": {
+						transform: "scale(1.05)", // Scale slightly larger
+						boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)", // Enhance shadow
+					},
 				}}
 			>
 				{/* Profile Image */}
@@ -59,10 +64,10 @@ const AboutCard = ({
 				</Typography>
 
 				{/* About Section */}
-				<Box sx={{ textAlign: "left" }}>
+				<Box sx={{ textAlign: "center" }}>
 					<Typography
 						variant="body1"
-						fontSize={"30px"}
+						fontSize={"25px"}
 						sx={{ paddingY: "11px" }}
 					>
 						About Me
@@ -74,10 +79,11 @@ const AboutCard = ({
 					{/* Social Media Icons */}
 					<Typography
 						variant="body1"
-						fontSize={"30px"}
+						fontSize={"25px"}
 						sx={{
 							paddingTop: "11px",
 							paddingBottom: "5px",
+							textAlign: "center"
 						}}
 					>
 						Profile Links
@@ -85,7 +91,8 @@ const AboutCard = ({
 					<Box
 						sx={{
 							display: "flex",
-							justifyContent: "flex-start",
+							justifyContent: "center",
+							alignContent: "center",
 							gap: "16px",
 							marginBottom: "16px",
 						}}
