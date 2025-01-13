@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import LandingPage from "./components/landingPage/landingPage";
 import Signup from "./components/auth/signup";
 import Login from "./components/auth/login";
@@ -12,44 +13,51 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { theme } from "./utils/theme";
 import { BackgroundBox } from "./utils/backgroundBox";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { checkLogin } from "./redux/actions/authActions";
 
 const UnauthenticatedRoutes = () => (
-  <BackgroundBox>
-    <NavbarLP />
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/forgotPassword" element={<ForgotPassword />} />
-      <Route path="/resetPassword/:token" element={<ResetPassword />} />
-      <Route path="/about" element={<About />} />
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  </BackgroundBox>
+	<BackgroundBox>
+		<NavbarLP />
+		<Routes>
+			<Route path="/" element={<LandingPage />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/signup" element={<Signup />} />
+			<Route path="/forgotPassword" element={<ForgotPassword />} />
+			<Route path="/resetPassword/:token" element={<ResetPassword />} />
+			<Route path="/about" element={<About />} />
+			<Route path="*" element={<Navigate to="/" />} />
+		</Routes>
+	</BackgroundBox>
 );
 
 const AuthenticatedRoutes = () => (
-  <BackgroundBox>
-    <NavbarDB />
-    <Routes>
-      <Route path="/dashboard" element={<DashBoard />} />
-      <Route path="*" element={<Navigate to="/dashboard" />} />
-    </Routes>
-  </BackgroundBox>
+	<BackgroundBox>
+		<NavbarDB />
+		<Routes>
+			<Route path="/dashboard" element={<DashBoard />} />
+			<Route path="*" element={<Navigate to="/dashboard" />} />
+		</Routes>
+	</BackgroundBox>
 );
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const loading = useSelector((state) => state.spinner.loading);
+	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+	const loading = useSelector((state) => state.spinner.loading);
+	
+	const dispatch = useDispatch();
 
-  return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {loading && <Spinner />}
-      {isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
-    </ThemeProvider>
-  );
+	useEffect(() => {
+		dispatch(checkLogin());	
+	}, [dispatch])
+
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			{loading && <Spinner />}
+			{isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+		</ThemeProvider>
+	);
 }
 
 export default App;
