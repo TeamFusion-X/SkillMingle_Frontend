@@ -46,3 +46,14 @@ export const resetPasswordAPI = async (resetData, token) => {
 		throw error;
 	}
 };
+
+export const checkLoginAPI = async () => {
+	try {
+		const response = await axiosInstance.get("/users/me");
+		return response.data;
+	} catch (error) {
+		if (error.response.data) error.message = error.response.data.message;
+		console.error("Cookie error:", error);
+		throw error;
+	}
+}

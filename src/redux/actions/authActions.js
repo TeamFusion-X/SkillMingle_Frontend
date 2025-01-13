@@ -3,12 +3,14 @@ import {
 	resetPasswordAPI,
 	loginAPI,
 	signupAPI,
+	checkLoginAPI,
 } from "../../services/authAPI";
 import { setSpinner } from "./spinnerActions";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const FAILURE = "FAILURE";
 export const SET_MESSAGE = "SET_MESSAGE";
+export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 export const loginSuccess = () => ({
 	type: LOGIN_SUCCESS,
@@ -24,6 +26,10 @@ export const setMessage = (message) => ({
 	payload: message,
 });
 
+export const clearMessage = () => ({
+	type : CLEAR_MESSAGE,
+});
+
 export const loginUser = (credentials) => async (dispatch) => {
 	dispatch(setSpinner(true));
 	try {
@@ -33,6 +39,10 @@ export const loginUser = (credentials) => async (dispatch) => {
 		dispatch(failure(error.message));
 	} finally {
 		dispatch(setSpinner(false));
+		
+		setTimeout(() => {
+			dispatch(clearMessage());
+		}, 3000);
 	}
 };
 
@@ -45,6 +55,10 @@ export const signupUser = (signupData) => async (dispatch) => {
 		dispatch(failure(error.message));
 	} finally {
 		dispatch(setSpinner(false));
+
+		setTimeout(() => {
+			dispatch(clearMessage());
+		}, 3000);
 	}
 };
 
@@ -57,6 +71,10 @@ export const forgotPassword = (email) => async (dispatch) => {
 		dispatch(failure(error.message));
 	} finally {
 		dispatch(setSpinner(false));
+
+		setTimeout(() => {
+			dispatch(clearMessage());
+		}, 3000);
 	}
 };
 
@@ -69,5 +87,21 @@ export const resetPassword = (resetData, token) => async (dispatch) => {
 		dispatch(failure(error.message));
 	} finally {
 		dispatch(setSpinner(false));
+
+		setTimeout(() => {
+			dispatch(clearMessage());
+		}, 3000);
 	}
 };
+
+export const checkLogin = () => async (dispatch) => {
+	dispatch(setSpinner(true));
+	try {
+		await checkLoginAPI();
+		dispatch(loginSuccess());
+	} catch (error) {
+		console.log("Not logged in!");
+	} finally {
+		dispatch(setSpinner(false));
+	}
+}
