@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 
 const userdataPropType = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  displayPicture: PropTypes.string.isRequired,
+  _id: PropTypes.string,
+  username: PropTypes.string,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  displayPicture: PropTypes.string,
   learningConversations: PropTypes.array,
   numberOfRatings: PropTypes.number,
   password: PropTypes.string,
