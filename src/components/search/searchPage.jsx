@@ -1,5 +1,5 @@
 import { useState } from "react";
-import UserCard from "./UserCard";
+import UserCard from "./userCard";
 import { Box, TextField, Button, Typography } from "@mui/material";
 
 const SearchPage = () => {
