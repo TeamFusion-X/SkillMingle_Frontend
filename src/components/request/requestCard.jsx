@@ -75,6 +75,7 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 				display: "flex",
 				flexDirection: "column",
 				width: "100%",
+				maxWidth: "600px",
 				padding: "20px",
 				backgroundColor: "rgba(255, 255, 255, 0.2)",
 				backdropFilter: "blur(10px)",
