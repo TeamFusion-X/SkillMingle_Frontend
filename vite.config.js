@@ -10,7 +10,7 @@ export default defineConfig({
         // target: 'http://localhost:3000',
         target: 'https://skillmingle-backend.onrender.com',
         changeOrigin: true,
-        secure: false,
+        secure: import.meta.env.VITE_ENV === "production" ? true : false,
       },
     },
   },
