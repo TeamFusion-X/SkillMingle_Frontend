@@ -1,7 +1,18 @@
 import { Box } from '@mui/material';
 import ProfileCard from './profileCard';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchUserData } from '../../redux/actions/userAction';
 
 const Profile = () => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUserData());
+
+  }, [dispatch]);
+
   return (
     <Box
       sx={{

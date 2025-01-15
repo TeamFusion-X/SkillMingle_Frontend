@@ -5,10 +5,11 @@ import {
   ToggleButtonGroup,
   ToggleButton,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProfilePage from "./profilePage";
 import ProfileUpdateCard from "./profileUpdateCard";
 import ProfilePageShimmer from "./profilePageShimmer";
+import { useSelector,  } from "react-redux";
 
 const ProfileCard = () => {
   const [selected, setSelected] = useState("option1");
@@ -21,24 +22,23 @@ const ProfileCard = () => {
 
   const handleFormSubmit = (data) => {
     console.log("Updated Data:", data);
+
+    
     // Send updated data to backend API
   };
 
-  const [userInfo, SetuserInfo] = useState();
+  // const [userInfo, setUserInfo] = useState();
 
-  useEffect(() => {
-    const fetchdata = async () => {
-      const response = await fetch("http://localhost:3000/api/users/me", {
-        method: "GET",
-        credentials: "include", // Include cookies in the request
-      });
-      const {
-        data: { user },
-      } = await response.json();
-      SetuserInfo(user);
-    };
-    fetchdata();
-  }, []);
+
+  // const dispatch = useDispatch();
+
+  const userInfo = useSelector((state) => state.user);
+  console.log(userInfo);
+  // useEffect(() => {
+
+  //   SetuserInfo(user);
+  //   console.log(user)
+  // }, [user]);
 
   return (
     <Box
