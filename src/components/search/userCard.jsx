@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { Box, Typography, Button, Avatar } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
