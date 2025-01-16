@@ -1,4 +1,4 @@
-import { UPDATE_USER, FAILURE, CLEAR_MESSAGE } from "../actions/userAction";
+import { UPDATE_USER, FAILURE, CLEAR_MESSAGE, UPDATE_USER_PROFILE, UPDATE_USER_DP} from "../actions/userAction";
 
 const initialState = {
     _id: null,
@@ -29,6 +29,20 @@ const userReducer = (state = initialState, action) => {
                 ...action.payload,
                 error : null,
             };
+
+        case UPDATE_USER_PROFILE :
+            return {
+                ...state,
+                ...action.payload,
+                error : null,
+            }
+
+        case UPDATE_USER_DP :
+            return {
+                ...state,
+                ...action.payload,
+                error : null,
+            }
 
         case FAILURE :
             return {

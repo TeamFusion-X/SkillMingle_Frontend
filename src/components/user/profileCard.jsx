@@ -1,6 +1,5 @@
 import {
   Box,
-  Avatar,
   Typography,
   ToggleButtonGroup,
   ToggleButton,
@@ -9,7 +8,11 @@ import { useState } from "react";
 import ProfilePage from "./profilePage";
 import ProfileUpdateCard from "./profileUpdateCard";
 import ProfilePageShimmer from "./profilePageShimmer";
-import { useSelector,  } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserData, updateUserDP } from "../../redux/actions/userAction";
+import DpUpdate from "./dpUpdate";
+import PasswordUpdate from "./passwordUpdate";
+import { updateUserPasswordAPI } from "../../services/userAPI";
 
 const ProfileCard = () => {
   const [selected, setSelected] = useState("option1");
@@ -20,25 +23,35 @@ const ProfileCard = () => {
     }
   };
 
+  const dispatch = useDispatch();
   const handleFormSubmit = (data) => {
     console.log("Updated Data:", data);
-
-    
+    dispatch(updateUserData(data));
     // Send updated data to backend API
   };
 
-  // const [userInfo, setUserInfo] = useState();
-
-
-  // const dispatch = useDispatch();
+  const handlePasswordChange = (data) => {
+    //console.log("Updated Password Data:", data);
+    const response = updateUserPasswordAPI(data);
+    console.log(response);
+    // will dispatch you soon
+  }
 
   const userInfo = useSelector((state) => state.user);
   console.log(userInfo);
-  // useEffect(() => {
+  const [profileImage, setProfileImage] = useState(
+    userInfo.profilePicture || "https://picsum.photos/200"
+  );
 
-  //   SetuserInfo(user);
-  //   console.log(user)
-  // }, [user]);
+  // Add this handler function
+  const handleImageUpdate = (file) => {
+    const previewUrl = URL.createObjectURL(file);
+    setProfileImage(previewUrl);
+
+    dispatch(updateUserDP(file));
+    // You can dispatch an action here to update the profile picture in your Redux store
+    // dispatch(updateProfilePicture(newImage));
+  };
 
   return (
     <Box
@@ -70,15 +83,9 @@ const ProfileCard = () => {
             paddingBottom: "20px",
           }}
         >
-          <Avatar
-            sx={{
-              width: 125,
-              height: 125,
-              borderRadius: 1,
-              border: "2px solid white",
-            }}
-            src="https://picsum.photos/200"
-            alt="Profile"
+          <DpUpdate
+            currentImage={profileImage}
+            onImageUpdate={handleImageUpdate}
           />
           <Box
             sx={{
@@ -87,7 +94,7 @@ const ProfileCard = () => {
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold", pl: "50px" }}>
-              Hello Deepesh!
+              Hello {userInfo.name}!
             </Typography>
           </Box>
         </Box>
@@ -138,15 +145,24 @@ const ProfileCard = () => {
           </ToggleButton>
         </ToggleButtonGroup>
 
-        {selected === "option1" && (userInfo ? (
-          <ProfilePage userdata={userInfo} />
-        ) : (
-          <ProfilePageShimmer />
-        ))}
+        {selected === "option1" &&
+          (userInfo ? (
+            <ProfilePage userdata={userInfo} />
+          ) : (
+            <ProfilePageShimmer />
+          ))}
 
-        {
-          selected === "option2" && <ProfileUpdateCard userdata={userInfo} onSubmitHandler={handleFormSubmit}/>
-        }
+        {selected === "option2" && (
+          <ProfileUpdateCard
+            userdata={userInfo}
+            onSubmitHandler={handleFormSubmit}
+          />
+        )}
+        {selected === "option3" && (
+          <PasswordUpdate 
+            onSubmitHandler={handlePasswordChange}
+          />
+        )}
       </Box>
     </Box>
   );

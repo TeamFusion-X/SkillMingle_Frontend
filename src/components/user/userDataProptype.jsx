@@ -5,6 +5,7 @@ const userdataPropType = PropTypes.shape({
   username: PropTypes.string,
   name: PropTypes.string,
   email: PropTypes.string,
+  bio:PropTypes.string,
   displayPicture: PropTypes.string,
   learningConversations: PropTypes.array,
   numberOfRatings: PropTypes.number,
