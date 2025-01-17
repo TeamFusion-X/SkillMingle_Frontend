@@ -44,6 +44,7 @@ const PasswordUpdate = (props) => {
                     {...field}
                     label="Password"
                     variant="standard"
+                    type="password"
                     InputLabelProps={{ shrink: true }}
                     error={!!errors.passwordCurrent}
                     helperText={errors.passwordCurrent?.message}
@@ -68,6 +69,7 @@ const PasswordUpdate = (props) => {
                     {...field}
                     label="New Password"
                     variant="standard"
+                    type="password"
                     InputLabelProps={{ shrink: true }}
                     error={!!errors.password}
                     helperText={errors.password?.message}
@@ -91,6 +93,7 @@ const PasswordUpdate = (props) => {
                     {...field}
                     label="Confirm New Password"
                     variant="standard"
+                    type="password"
                     InputLabelProps={{ shrink: true }}
                     error={!!errors.passwordConfirm}
                     helperText={errors.passwordConfirm?.message}
