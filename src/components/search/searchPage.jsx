@@ -1,45 +1,24 @@
 import { useState } from "react";
 import UserCard from "./userCard";
 import { Box, TextField, Button, Typography } from "@mui/material";
+import { searchSkillsAPI } from "../../services/searchAPI";
 
 const SearchPage = () => {
 	const [searchQuery, setSearchQuery] = useState("");
-	const sampleUsers = [
-		{
-			username: "john_doe",
-			name: "John Doe",
-			dp: "https://via.placeholder.com/150",
-			rating: 4.5,
-			match: "87%",
-		},
-		{
-			username: "jane_smith",
-			name: "Jane Smith",
-			dp: "https://via.placeholder.com/150",
-			rating: 4.8,
-			match: "92%",
-		},
-		{
-			username: "mark_twain",
-			name: "Mark Twain",
-			dp: "https://via.placeholder.com/150",
-			rating: 4.3,
-			match: "80%",
-		},
-	];
+	const [matchedUsers, setMatchedUsers] = useState([]);
+	const [searchedSkill, setSearchedSkill] = useState("");
 
-	const filteredUsers = sampleUsers.filter((user) =>
-		user.name.toLowerCase().includes(searchQuery.toLowerCase())
-	);
-
-	const handleSendRequest = (username) => {
-		console.log(`Request sent to ${username}`);
-		// Add API call here to send the request
-	};
-
-	const handleSearch = () => {
-		console.log(`Searching for: ${searchQuery}`);
-		// Add any additional search logic here
+	const handleSearch = async () => {
+		try {
+			const response = await searchSkillsAPI(searchQuery);
+			if (response.status === "success") {
+				setMatchedUsers(response.rankedUsers);
+				setSearchedSkill(searchQuery);
+			}
+		} catch (error) {
+			setMatchedUsers([]);
+			console.error("Error searching:", error);
+		}
 	};
 
 	return (
@@ -108,32 +87,12 @@ const SearchPage = () => {
 
 			<Box
 				sx={{
-					flex: 1,
 					width: "100%",
+					height: "80vh",
 					overflowY: "auto",
 					padding: "20px",
 				}}
 			>
-				<Box
-					sx={{
-						position: "sticky",
-						top: 0,
-						backgroundColor: "rgba(255, 255, 255, 0.3)",
-						zIndex: 2,
-						padding: "10px 0",
-					}}
-				>
-					<Typography
-						variant="h5"
-						sx={{
-							fontWeight: "bold",
-							borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
-							paddingBottom: "5px",
-						}}
-					>
-						Matched Users
-					</Typography>
-				</Box>
 				<Box
 					sx={{
 						marginTop: "10px",
@@ -141,13 +100,30 @@ const SearchPage = () => {
 						overflowY: "scroll",
 					}}
 				>
-					{filteredUsers.map((user) => (
-						<UserCard
-							key={user.username}
-							user={user}
-							onSendRequest={handleSendRequest}
-						/>
-					))}
+					{matchedUsers.length > 0 ? (
+						matchedUsers.map((user) => (
+							<UserCard
+								key={user.username}
+								username={user.username}
+								name={user.name}
+								rating={user.rating}
+								dp={user.dp}
+								match={user.match}
+								skill={searchedSkill}
+							/>
+						))
+					) : (
+						<Typography
+							variant="h6"
+							sx={{
+								color: "#ffffff",
+								textAlign: "center",
+								marginTop: "20px",
+							}}
+						>
+							No users found!
+						</Typography>
+					)}
 				</Box>
 			</Box>
 		</Box>
