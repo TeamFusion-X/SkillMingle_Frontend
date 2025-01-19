@@ -6,13 +6,14 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import ProfilePage from "./profilePage";
-import ProfileUpdateCard from "./profileUpdateCard";
+import ProfileUpdateCard from "./profileUpdatePage";
 import ProfilePageShimmer from "./profilePageShimmer";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserData, updateUserDP } from "../../redux/actions/userAction";
 import DpUpdate from "./dpUpdate";
-import PasswordUpdate from "./passwordUpdate";
 import { updateUserPasswordAPI } from "../../services/userAPI";
+import PasswordUpdatePage from "./passwordUpdatePage";
+import LogoutCard from "./logoutPage";
 
 const ProfileCard = () => {
   const [selected, setSelected] = useState("option1");
@@ -143,6 +144,9 @@ const ProfileCard = () => {
           <ToggleButton value="option3" aria-label="option 3">
             Update Password
           </ToggleButton>
+          <ToggleButton value="option4" aria-label="option 4">
+            Logout
+          </ToggleButton>
         </ToggleButtonGroup>
 
         {selected === "option1" &&
@@ -159,9 +163,12 @@ const ProfileCard = () => {
           />
         )}
         {selected === "option3" && (
-          <PasswordUpdate 
+          <PasswordUpdatePage 
             onSubmitHandler={handlePasswordChange}
           />
+        )}
+        {selected === "option4" && (
+          <LogoutCard />
         )}
       </Box>
     </Box>

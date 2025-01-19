@@ -5,7 +5,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useForm, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 
-const PasswordUpdate = (props) => {
+const PasswordUpdatePage = (props) => {
   const onSubmitHandler = props.onSubmitHandler;
 
   const {
@@ -124,8 +124,8 @@ const PasswordUpdate = (props) => {
   );
 };
 
-PasswordUpdate.propTypes = {
+PasswordUpdatePage.propTypes = {
   onSubmitHandler: PropTypes.func.isRequired,
 };
 
-export default PasswordUpdate;
+export default PasswordUpdatePage;
