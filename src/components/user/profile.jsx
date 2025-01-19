@@ -26,7 +26,7 @@ const Profile = () => {
         padding: 2,           
         boxSizing: 'border-box', 
         borderRadius: '1%',
-        backgroundColor: 'rgba(173, 216, 230, 0.3)',
+        backgroundColor: 'transparent',
       }}
     >
       <ProfileCard />

@@ -39,10 +39,7 @@ const ProfileCard = () => {
   }
 
   const userInfo = useSelector((state) => state.user);
-  console.log(userInfo);
-  const [profileImage, setProfileImage] = useState(
-    userInfo.profilePicture || "https://picsum.photos/200"
-  );
+  const [profileImage, setProfileImage] = useState(userInfo.displayPicture || "https://picsum.photos/200");
 
   // Add this handler function
   const handleImageUpdate = (file) => {

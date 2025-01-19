@@ -62,7 +62,7 @@ const NavbarLP = () => {
 							style={{
 								color:
 									location.pathname === item.path
-										? "cyan"
+										? "rgb(255, 233, 106)"
 										: "white", // Highlight current page
 							}}
 							title={item.label} // Tooltip for better UX
@@ -80,8 +80,8 @@ const NavbarLP = () => {
 					style={{
 						color:
 							location.pathname === "/profile"
-								? "yellow"
-								: "white", // Highlight profile button if selected
+								? "rgb(255, 233, 106)"
+								: "white",
 					}}
 				>
 					<AccountCircleIcon />

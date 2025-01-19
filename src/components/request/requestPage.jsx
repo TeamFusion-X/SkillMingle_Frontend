@@ -34,9 +34,10 @@ const RequestPage = () => {
 				paddingTop: "80px",
 				display: "flex",
 				flexDirection: "column",
-				alignItems: "stretch",
+				alignItems: "center",
 				gap: "10px",
 				minHeight: "100vh",
+				minWidth: "70vw",
 				backgroundColor: "transparent",
 			}}
 		>

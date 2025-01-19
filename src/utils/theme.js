@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 export const theme = createTheme({
 	palette: {
 		background: {
-			default: "#003366",
+			default: "rgb(30, 30, 30)",
 		},
 		text: {
 			primary: "#ffffff",
