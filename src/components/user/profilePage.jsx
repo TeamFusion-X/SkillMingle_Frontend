@@ -85,7 +85,7 @@ const ProfilePage = (props) => {
                 <ChatIcon sx={{ color: "text.secondary", flexShrink: 0 }} />
               }
               label="Teaching Conversations"
-              value={userInfo.teachingConversations.length}
+              value={(userInfo?.teachingConversations || []).length || "N/A"}
             />
           </Paper>
         </Grid>
@@ -185,7 +185,7 @@ const ProfilePage = (props) => {
                 >
                   <Typography variant="h6">Reviews</Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {userInfo.reviews.length}
+                    {userInfo?.reviews.length || "N/A"}
                   </Typography>
                 </Paper>
               </Grid>

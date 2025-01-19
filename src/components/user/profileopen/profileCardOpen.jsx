@@ -1,21 +1,29 @@
 import {
   Box,
   Typography,
-
   Avatar,
 } from "@mui/material";
-import { useEffect} from "react";
-
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { getUserProfileOpenAPI } from "../../../services/userAPI";
+import ProfilePage from "../profilePage";
+import ProfilePageShimmer from "../profilePageShimmer";
 
 const ProfileCardOpen = () => {
+  const [userInfo, setUserInfo] = useState(null);
+  const { username } = useParams(); 
   
-
   useEffect(() => {
-    const response = getUserProfileOpenAPI("dummyname");
-    console.log(response);
-    
-  },[])
+    const fetchUser = async () => {
+      try {
+        const response = await getUserProfileOpenAPI(username);
+        setUserInfo(response);
+      } catch (error) {
+        console.error("Failed to fetch user profile:", error);
+      }
+    };
+    fetchUser();
+  }, [username]); // Re-run the effect when `name` changes
 
   return (
     <Box
@@ -59,16 +67,22 @@ const ProfileCardOpen = () => {
           />
           <Box
             sx={{
-              flexGrow: 1, // Occupy remaining horizontal space
-              textAlign: "left", // Center the name horizontally
+              flexGrow: 1, 
+              textAlign: "left", 
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold", pl: "50px" }}>
-              
+              {userInfo?.name || "Loading..."} {/* Example: Display user's name */}
             </Typography>
           </Box>
         </Box>
 
+        
+        {userInfo ? (
+          <ProfilePage userdata={userInfo} /> // Pass `userInfo` as a prop to ProfilePage
+        ) : (
+          <ProfilePageShimmer />
+        )}
       </Box>
     </Box>
   );

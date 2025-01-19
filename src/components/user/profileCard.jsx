@@ -32,7 +32,6 @@ const ProfileCard = () => {
   };
 
   const handlePasswordChange = (data) => {
-    //console.log("Updated Password Data:", data);
     const response = updateUserPasswordAPI(data);
     console.log(response);
     // will dispatch you soon
