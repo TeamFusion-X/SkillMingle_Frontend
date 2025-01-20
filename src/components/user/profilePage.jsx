@@ -1,11 +1,12 @@
 import { Box, Grid, Typography, Paper, Chip } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
-import InfoIcon from '@mui/icons-material/Info';
+import InfoIcon from "@mui/icons-material/Info";
 import ChatIcon from "@mui/icons-material/Chat";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import PropTypes from "prop-types";
 import userdataPropType from "./userDataProptype";
+import SkillRequest from "./skillRequest";
 
 const InfoRow = ({ icon, label, value }) => (
   <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
@@ -26,8 +27,8 @@ InfoRow.propTypes = {
 };
 
 const ProfilePage = (props) => {
-  console.log(props.userdata);
   const userInfo = props.userdata;
+  const isUserNameAvailable = !!props.username;
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -48,7 +49,9 @@ const ProfilePage = (props) => {
 
             <InfoRow
               icon={
-                <AccountBoxIcon sx={{ color: "text.secondary", flexShrink: 0 }} />
+                <AccountBoxIcon
+                  sx={{ color: "text.secondary", flexShrink: 0 }}
+                />
               }
               label="Username"
               value={userInfo.username}
@@ -72,9 +75,7 @@ const ProfilePage = (props) => {
 
             <InfoRow
               icon={
-                <InfoIcon 
-                  sx={{ color: "text.secondary", flexShrink: 0 }}
-                />
+                <InfoIcon sx={{ color: "text.secondary", flexShrink: 0 }} />
               }
               label="Bio"
               value={userInfo.bio}
@@ -124,26 +125,30 @@ const ProfilePage = (props) => {
               </Box>
             </Box>
 
-            <Box sx={{ mb: 4 }}>
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                Skills to Teach
-              </Typography>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
-                {userInfo.skillsToTeach.map((skill, index) => (
-                  <Chip
-                    key={index}
-                    label={skill}
-                    sx={{
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
-                      color: "white",
-                      "&:hover": {
-                        backgroundColor: "rgba(255, 255, 255, 0.2)",
-                      },
-                    }}
-                  />
-                ))}
+            {isUserNameAvailable ? (
+              <SkillRequest skills={userInfo.skillsToTeach} />
+            ) : (
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  Skills to Teach
+                </Typography>
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                  {userInfo.skillsToTeach.map((skill, index) => (
+                    <Chip
+                      key={index}
+                      label={skill}
+                      sx={{
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "rgba(255, 255, 255, 0.2)",
+                        },
+                      }}
+                    />
+                  ))}
+                </Box>
               </Box>
-            </Box>
+            )}
 
             <Box sx={{ mb: 4 }}>
               <Typography variant="h6" sx={{ mb: 2 }}>
@@ -214,6 +219,7 @@ const ProfilePage = (props) => {
 
 ProfilePage.propTypes = {
   userdata: userdataPropType.isRequired,
+  username: PropTypes.string,
 };
 
 export default ProfilePage;

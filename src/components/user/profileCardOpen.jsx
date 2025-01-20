@@ -5,9 +5,9 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserProfileOpenAPI } from "../../../services/userAPI";
-import ProfilePage from "../profilePage";
-import ProfilePageShimmer from "../profilePageShimmer";
+import { getUserProfileOpenAPI } from "../../services/userAPI";
+import ProfilePage from "./profilePage";
+import ProfilePageShimmer from "./profilePageShimmer";
 
 const ProfileCardOpen = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -40,9 +40,9 @@ const ProfileCardOpen = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between", // Space between profile + toggle button group
+          justifyContent: "space-between", 
           alignItems: "start",
-          flexWrap: "wrap", // Ensure it wraps on smaller screens
+          flexWrap: "wrap", 
           gap: 2,
         }}
       >
@@ -72,14 +72,14 @@ const ProfileCardOpen = () => {
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold", pl: "50px" }}>
-              {userInfo?.name || "Loading..."} {/* Example: Display user's name */}
+              {userInfo?.name || "Loading..."} 
             </Typography>
           </Box>
         </Box>
 
         
         {userInfo ? (
-          <ProfilePage userdata={userInfo} /> // Pass `userInfo` as a prop to ProfilePage
+          <ProfilePage userdata={userInfo} username={username} /> 
         ) : (
           <ProfilePageShimmer />
         )}

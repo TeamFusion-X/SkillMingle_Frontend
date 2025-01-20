@@ -3,7 +3,9 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Typography, TextField, Button, Chip } from "@mui/material";
 
-const SkillInput = ({ title, skills, onAddSkill, onRemoveSkill }) => {
+const SkillInput = (props) => {
+
+  const { title, skills, onAddSkill, onRemoveSkill } = props;
   const [input, setInput] = useState("");
 
   const handleAdd = () => {
