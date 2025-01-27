@@ -24,7 +24,15 @@ export const signupAPI = async (signupData) => {
 
 export const forgotPasswordAPI = async (email) => {
 	try {
-		const response = await axiosInstance.post("/users/forgotPassword", {email});
+		const response = await axiosInstance.post(
+			"/users/forgotPassword",
+			{ email },
+			{
+				headers: {
+					"x-frontend-host": window.location.origin,
+				},
+			}
+		);
 		return response.data;
 	} catch (error) {
 		if (error.response.data) error.message = error.response.data.message;
