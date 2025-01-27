@@ -38,7 +38,7 @@ const ProfileCard = () => {
   }
 
   const userInfo = useSelector((state) => state.user);
-  const [profileImage, setProfileImage] = useState(userInfo.displayPicture || "https://picsum.photos/200");
+  const [profileImage, setProfileImage] = useState(`https://skillmingle-backend.onrender.com/${userInfo.displayPicture}` || "https://picsum.photos/200");
 
   // Add this handler function
   const handleImageUpdate = (file) => {
