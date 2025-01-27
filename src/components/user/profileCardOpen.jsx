@@ -62,7 +62,7 @@ const ProfileCardOpen = () => {
               borderRadius: 1,
               border: "2px solid white",
             }}
-            src="https://picsum.photos/200"
+            src={`https://skillmingle-backend.onrender.com/${userInfo.displayPicture}` || "https://picsum.photos/200"}
             alt="Profile"
           />
           <Box
