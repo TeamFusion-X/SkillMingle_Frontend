@@ -21,7 +21,7 @@ import LearningChats from "./components/chat/learn/learningChats";
 import TeachingChats from "./components/chat/teach/teachingChats";
 import SearchPage from "./components/search/searchPage";
 import Notification from "./components/notification/notification";
-import ProfileOpen from "./components/user/profileopen/profileOpen";
+
 
 const UnauthenticatedRoutes = () => (
 	<BackgroundBox>
@@ -33,7 +33,7 @@ const UnauthenticatedRoutes = () => (
 			<Route path="/forgotPassword" element={<ForgotPassword />} />
 			<Route path="/resetPassword/:token" element={<ResetPassword />} />
 			<Route path="/about" element={<About />} />
-			<Route path="/about/:username" element={<ProfileOpen />} />
+			<Route path="/about/:username" element={<Profile />} />
 			<Route path="*" element={<Navigate to="/" />} />
 		</Routes>
 	</BackgroundBox>
@@ -50,7 +50,7 @@ const AuthenticatedRoutes = () => (
 			<Route path="/teach" element={<TeachingChats />} />
 			<Route path="/search" element={<SearchPage />} />
 			<Route path="/notifications" element={<Notification />} />
-			<Route path="/about/:username" element={<ProfileOpen />} />
+			<Route path="/about/:username" element={<Profile />} />
 			<Route path="*" element={<Navigate to="/dashboard" />} />
 		</Routes>
 	</BackgroundBox>

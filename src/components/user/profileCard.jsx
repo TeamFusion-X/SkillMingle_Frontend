@@ -46,8 +46,7 @@ const ProfileCard = () => {
     setProfileImage(previewUrl);
 
     dispatch(updateUserDP(file));
-    // You can dispatch an action here to update the profile picture in your Redux store
-    // dispatch(updateProfilePicture(newImage));
+    
   };
 
   return (

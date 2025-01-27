@@ -3,10 +3,13 @@ import ProfileCard from './profileCard';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchUserData } from '../../redux/actions/userAction';
+import { useParams } from 'react-router-dom';
+import ProfileCardOpen from './profileCardOpen';
 
 const Profile = () => {
 
   const dispatch = useDispatch();
+  const { username } = useParams();
 
   useEffect(() => {
     dispatch(fetchUserData());
@@ -29,7 +32,7 @@ const Profile = () => {
         backgroundColor: 'transparent',
       }}
     >
-      <ProfileCard />
+       {username ? <ProfileCardOpen /> : <ProfileCard />}
     </Box>
   );
 };
