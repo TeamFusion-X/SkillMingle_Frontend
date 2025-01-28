@@ -38,10 +38,10 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 		onAction("Skill Share", selectedSkill);
 	};
 
-	const handleUsernameClick = async(username) => {
+	const handleUsernameClick = async (username) => {
 		const url = `/about/${encodeURIComponent(username)}`;
 		navigate(url);
-	}
+	};
 
 	const onAction = async (type, selectedSkill = null) => {
 		try {
@@ -79,7 +79,7 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 
 	return (
 		<Box
-			style={{
+			sx={{
 				display: "flex",
 				flexDirection: "column",
 				width: "100%",
@@ -91,6 +91,12 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 				borderRadius: "12px",
 				boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
 				color: "#ffffff",
+				transition: "all 0.3s ease", // Add smooth transition
+				"&:hover": {
+					transform: "scale(1.02)",
+					backgroundColor: "rgba(255, 255, 255, 0.25)",
+					boxShadow: "0 6px 20px rgba(0, 0, 0, 0.3)",
+				},
 			}}
 		>
 			{/* Top Section */}
@@ -108,13 +114,13 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 				</Typography>
 				<Typography
 					variant="body2"
-					onClick={() => handleUsernameClick(sender)} 
+					onClick={() => handleUsernameClick(sender)}
 					style={{
 						textAlign: "right",
 						flex: 1,
-						color: "rgb(114, 236, 226)", 
+						color: "rgb(114, 236, 226)",
 						fontStyle: "italic",
-						cursor: "pointer", 
+						cursor: "pointer",
 					}}
 				>
 					<strong>{sender}</strong>

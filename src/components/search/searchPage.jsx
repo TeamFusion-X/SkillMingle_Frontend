@@ -157,9 +157,9 @@ const SearchPage = () => {
 					height: "80vh",
 					overflowY: "auto",
 					padding: "20px",
-					display: "flex", // Add flex container
-					justifyContent: "center", // Center horizontally
-					alignItems: "flex-start", // Align at the top (change to "center" for vertical centering)
+					display: "flex", 
+					justifyContent: "center", 
+					alignItems: "flex-start", 
 				}}
 			>
 				<Box
@@ -167,11 +167,11 @@ const SearchPage = () => {
 						marginTop: "10px",
 						height: "calc(100% - 50px)",
 						overflowY: "scroll",
-						display: "flex", // Flex container for cards
-						flexDirection: "column", // Ensure cards stack vertically
-						alignItems: "center", // Center cards horizontally
-						width: "100%", // Adjust width as needed
-						maxWidth: "600px", // Optional: Set a max width for the card container
+						display: "flex", 
+						flexDirection: "column", 
+						alignItems: "center", 
+						width: "100%", 
+						maxWidth: "600px", 
 					}}
 				>
 					{matchedUsers.length > 0 ? (

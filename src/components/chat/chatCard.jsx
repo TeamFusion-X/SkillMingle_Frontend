@@ -17,7 +17,7 @@ const ConversationCard = ({ skill, chatWith, onSelect }) => {
 				borderRadius: "12px",
 				boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
 				color: "#ffffff",
-				cursor: "pointer", // Makes the card appear clickable
+				cursor: "pointer",
 				transition: "transform 0.2s, background-color 0.2s",
 			}}
 			onMouseEnter={(e) =>

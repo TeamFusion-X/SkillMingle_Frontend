@@ -124,26 +124,21 @@ const ProfileCard = ({ username, name, dp, rating, match, skill }) => {
 							color: "#dddddd",
 						}}
 					>
-						Match:<strong>{match}%</strong>
+						Match: <strong>{match}%</strong>
 					</Typography>
-
 					<Button
-						variant="contained"
-						style={{
-							backgroundColor: "rgba(144, 238, 144, 0.8)",
-							color: "#000000",
-							fontWeight: "bold",
-							textTransform: "none",
-							boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-							padding: "5px 15px",
-						}}
-						onClick={(e) => {
-							e.stopPropagation(); // Prevent card click event
-							onSendRequest();
-						}}
-					>
-						Send Request
-					</Button>
+					variant="outlined"
+					style={{
+						borderColor: "rgba(144, 238, 144, 0.6)",
+						color: "rgba(144, 238, 144, 0.9)",
+					}}
+					onClick={(e) => {
+						e.stopPropagation();
+						onSendRequest();
+					}}
+				>
+					Send Request
+				</Button>
 				</Box>
 			</Box>
 		</Box>
