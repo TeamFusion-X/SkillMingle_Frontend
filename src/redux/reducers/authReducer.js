@@ -1,5 +1,6 @@
 import {
 	LOGIN_SUCCESS,
+	LOGOUT_SUCCESS,
 	FAILURE,
 	SET_MESSAGE,
 	CLEAR_MESSAGE,
@@ -17,6 +18,8 @@ const authReducer = (state = initialState, action) => {
 			return { ...state, isLoggedIn: true, error: null };
 		case FAILURE:
 			return { ...state, isLoggedIn: false, error: action.payload };
+		case LOGOUT_SUCCESS:
+			return { ...state, isLoggedIn: false, error: null };
 		case SET_MESSAGE:
 			return { ...state, message: action.payload };
 		case CLEAR_MESSAGE:

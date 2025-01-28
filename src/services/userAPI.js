@@ -52,17 +52,6 @@ export const updateUserPasswordAPI = async (newPassword) => {
     }
 }
 
-export const logoutUserAPI = async () => {
-    try {
-        const response = await axiosInstance.get("/users/logout");
-        return response.data;
-    } catch (error) {
-        if(error.response?.data) error.message = error.response.data.message;
-        console.error("Password Update error:", error);
-        throw error;
-    }
-}
-
 export const getUserProfileOpenAPI = async(username) => {
     try {
         const response = await axiosInstance.get(`users/about/${username}`);

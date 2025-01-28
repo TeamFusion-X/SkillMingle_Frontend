@@ -90,7 +90,7 @@ const ProfileCard = () => {
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold", pl: "50px" }}>
-              Hello {userInfo.name}!
+              {userInfo.name}
             </Typography>
           </Box>
         </Box>

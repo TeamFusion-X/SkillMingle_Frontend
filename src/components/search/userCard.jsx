@@ -3,6 +3,11 @@ import { Box, Typography, Avatar, Button } from "@mui/material";
 import { sendRequestAPI } from "../../services/requestAPI";
 
 const ProfileCard = ({ username, name, dp, rating, match, skill }) => {
+	const handleUsernameClick = async(username) => {
+		const url = `/about/${encodeURIComponent(username)}`;
+		window.open(url, "_blank");
+	}
+
 	const onSendRequest = async () => {
 		try {
 			const response = await sendRequestAPI(skill, username);
@@ -18,7 +23,7 @@ const ProfileCard = ({ username, name, dp, rating, match, skill }) => {
 		<Box
 			style={{
 				display: "flex",
-				flexDirection: "column",
+				flexDirection: "row",
 				width: "100%",
 				maxWidth: "600px",
 				padding: "15px 20px",
@@ -28,7 +33,7 @@ const ProfileCard = ({ username, name, dp, rating, match, skill }) => {
 				borderRadius: "12px",
 				boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
 				color: "#ffffff",
-				cursor: "pointer", // Makes the card appear clickable
+				cursor: "pointer",
 				transition: "transform 0.2s, background-color 0.2s",
 			}}
 			onMouseEnter={(e) =>
@@ -44,21 +49,34 @@ const ProfileCard = ({ username, name, dp, rating, match, skill }) => {
 			}
 			onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1.0)")}
 		>
-			{/* Profile Header */}
-			<Box display="flex" alignItems="center" marginBottom="15px">
-				{/* Profile Avatar */}
-				<Avatar
-					src={dp}
-					alt={name}
+			{/* Profile Avatar */}
+			<Avatar
+				src={dp}
+				alt={name}
+				style={{
+					width: "80px",
+					height: "80px",
+					marginRight: "20px",
+					border: "2px solid rgba(255, 255, 255, 0.6)",
+				}}
+			/>
+
+			{/* Profile Details */}
+			<Box
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "space-between",
+					width: "100%",
+				}}
+			>
+				{/* Name and Username */}
+				<Box
 					style={{
-						width: "60px",
-						height: "60px",
-						marginRight: "20px",
-						border: "2px solid rgba(255, 255, 255, 0.6)",
+						display: "flex",
+						justifyContent: "space-between",
 					}}
-				/>
-				{/* Profile Information */}
-				<Box display="flex" flexDirection="column">
+				>
 					<Typography
 						variant="h6"
 						style={{
@@ -66,7 +84,39 @@ const ProfileCard = ({ username, name, dp, rating, match, skill }) => {
 							color: "#ffffff",
 						}}
 					>
-						{name} (@{username})
+						{name}
+					</Typography>
+					<Typography
+					variant="body2"
+					onClick={() => handleUsernameClick(username)} 
+					style={{
+						textAlign: "right",
+						flex: 1,
+						color: "rgb(114, 236, 226)", 
+						fontStyle: "italic",
+						cursor: "pointer", 
+					}}
+				>
+					<strong>{username}</strong>
+				</Typography>
+				</Box>
+
+				{/* Rating, Match, and Button */}
+				<Box
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						marginTop: "10px",
+					}}
+				>
+					<Typography
+						variant="body2"
+						style={{
+							color: "#dddddd",
+						}}
+					>
+						Rating: <strong>{rating}⭐</strong>
 					</Typography>
 					<Typography
 						variant="body2"
@@ -74,32 +124,28 @@ const ProfileCard = ({ username, name, dp, rating, match, skill }) => {
 							color: "#dddddd",
 						}}
 					>
-						Rating: <strong>{rating}</strong> | Match:{" "}
-						<strong>{match}%</strong>
+						Match:<strong>{match}%</strong>
 					</Typography>
+
+					<Button
+						variant="contained"
+						style={{
+							backgroundColor: "rgba(144, 238, 144, 0.8)",
+							color: "#000000",
+							fontWeight: "bold",
+							textTransform: "none",
+							boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+							padding: "5px 15px",
+						}}
+						onClick={(e) => {
+							e.stopPropagation(); // Prevent card click event
+							onSendRequest();
+						}}
+					>
+						Send Request
+					</Button>
 				</Box>
 			</Box>
-
-			{/* Send Request Button */}
-			<Button
-				variant="contained"
-				style={{
-					marginTop: "10px",
-					backgroundColor: "rgba(144, 238, 144, 0.8)",
-					color: "#000000",
-					fontWeight: "bold",
-					textTransform: "none",
-					boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
-					width: "fit-content",
-					alignSelf: "flex-end", // Align button to the right
-				}}
-				onClick={(e) => {
-					e.stopPropagation(); // Prevent card click event
-					onSendRequest();
-				}}
-			>
-				Send Request
-			</Button>
 		</Box>
 	);
 };

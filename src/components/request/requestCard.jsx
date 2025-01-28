@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
 	Box,
@@ -23,6 +24,8 @@ import {
 } from "../../services/requestAPI";
 
 const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
+	const navigate = useNavigate();
+
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const [chooseSkills, setChooseSkills] = useState([]);
 
@@ -34,6 +37,11 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 		setIsDrawerOpen(false);
 		onAction("Skill Share", selectedSkill);
 	};
+
+	const handleUsernameClick = async(username) => {
+		const url = `/about/${encodeURIComponent(username)}`;
+		navigate(url);
+	}
 
 	const onAction = async (type, selectedSkill = null) => {
 		try {
@@ -100,14 +108,16 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 				</Typography>
 				<Typography
 					variant="body2"
+					onClick={() => handleUsernameClick(sender)} 
 					style={{
 						textAlign: "right",
 						flex: 1,
-						color: "#dddddd",
+						color: "rgb(114, 236, 226)", 
 						fontStyle: "italic",
+						cursor: "pointer", 
 					}}
 				>
-					Requested by: <strong>{sender}</strong>
+					<strong>{sender}</strong>
 				</Typography>
 			</Box>
 
@@ -139,8 +149,8 @@ const RequestCard = ({ requestID, skill, sender, onActionSuccess }) => {
 						color: "rgba(173, 216, 230, 0.9)",
 					}}
 					onClick={() => {
-						onAction("Skill Share")
-						toggleDrawer(true)
+						onAction("Skill Share");
+						toggleDrawer(true);
 					}}
 				>
 					Skill Share

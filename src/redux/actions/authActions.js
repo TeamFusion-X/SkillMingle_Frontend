@@ -4,16 +4,22 @@ import {
 	loginAPI,
 	signupAPI,
 	checkLoginAPI,
+	logoutUserAPI
 } from "../../services/authAPI";
 import { setSpinner } from "./spinnerActions";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const FAILURE = "FAILURE";
 export const SET_MESSAGE = "SET_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 export const loginSuccess = () => ({
 	type: LOGIN_SUCCESS,
+});
+
+export const logoutSuccess = () =>({
+	type: LOGOUT_SUCCESS,
 });
 
 export const failure = (error) => ({
@@ -101,6 +107,18 @@ export const checkLogin = () => async (dispatch) => {
 		dispatch(loginSuccess());
 	} catch (error) {
 		console.log("Not logged in!");
+	} finally {
+		dispatch(setSpinner(false));
+	}
+}
+
+export const logoutUser = () => async (dispatch) => {
+	dispatch(setSpinner(true));
+	try {
+		await logoutUserAPI();
+		dispatch(logoutSuccess());
+	} catch (error) {
+		console.log("Not logged out!");
 	} finally {
 		dispatch(setSpinner(false));
 	}
