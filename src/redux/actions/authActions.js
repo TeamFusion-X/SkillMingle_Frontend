@@ -7,6 +7,7 @@ import {
 	logoutUserAPI
 } from "../../services/authAPI";
 import { setSpinner } from "./spinnerActions";
+import { updateUser } from "./userAction";
 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
@@ -39,8 +40,9 @@ export const clearMessage = () => ({
 export const loginUser = (credentials) => async (dispatch) => {
 	dispatch(setSpinner(true));
 	try {
-		await loginAPI(credentials);
-		dispatch(loginSuccess());
+		const response = await loginAPI(credentials);
+		dispatch(updateUser(response.data.user));
+		dispatch(loginSuccess(response.data.user));
 	} catch (error) {
 		dispatch(failure(error.message));
 	} finally {
@@ -55,7 +57,8 @@ export const loginUser = (credentials) => async (dispatch) => {
 export const signupUser = (signupData) => async (dispatch) => {
 	dispatch(setSpinner(true));
 	try {
-		await signupAPI(signupData);
+		const response = await signupAPI(signupData);
+		dispatch(updateUser(response.data.user));
 		dispatch(loginSuccess());
 	} catch (error) {
 		dispatch(failure(error.message));
@@ -103,7 +106,8 @@ export const resetPassword = (resetData, token) => async (dispatch) => {
 export const checkLogin = () => async (dispatch) => {
 	dispatch(setSpinner(true));
 	try {
-		await checkLoginAPI();
+		const response = await checkLoginAPI();
+		dispatch(updateUser(response.data.user))
 		dispatch(loginSuccess());
 	} catch (error) {
 		console.log("Not logged in!");
