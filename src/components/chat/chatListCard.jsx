@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
 
-const ChatListCard = ({ skill, chatWith, onSelect, isSelected }) => {
+const ChatListCard = ({ chatID, skill, chatWith, onSelect, isSelected }) => {
 	return (
 		<Box
-			onClick={onSelect}
+			onClick={() => onSelect(chatID)}
 			style={{
 				display: "flex",
 				flexDirection: "column",
@@ -65,6 +65,7 @@ const ChatListCard = ({ skill, chatWith, onSelect, isSelected }) => {
 };
 
 ChatListCard.propTypes = {
+	chatID: PropTypes.string.isRequired,
 	skill: PropTypes.string.isRequired,
 	chatWith: PropTypes.string.isRequired,
 	onSelect: PropTypes.func.isRequired,

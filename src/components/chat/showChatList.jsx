@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
 import ChatListCard from "./chatListCard";
+import Chat from "./chat";
 import {
 	getTeachingChatsAPI,
 	getLearningChatsAPI,
@@ -11,6 +12,7 @@ const ShowChatList = ({ type }) => {
 	const [conversations, setConversations] = useState([]);
 	const [error, setError] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [selectedChat, setSelectedChat] = useState(null);
 
 	useEffect(() => {
 		const fetchConversations = async () => {
@@ -64,29 +66,36 @@ const ShowChatList = ({ type }) => {
 				minWidth: "70vw",
 				backgroundColor: "transparent",
 			}}
-		>
-			{conversations.length > 0 ? (
-				conversations.map((conversation) => (
-					<ChatListCard
-						key={conversation.id}
-						chatID={conversation.id}
-						skill={conversation.chatTitle}
-						chatWith={conversation.chatWith}
-						onSelect={() => {}}
-					/>
-				))
-			) : (
-				<Typography
-					variant="h6"
-					sx={{
-						color: "#ffffff",
-						textAlign: "center",
-						marginTop: "20px",
-					}}
-				>
-					No {type === "learn" ? "learning" : "teaching"}{" "}
-					conversations found!
-				</Typography>
+		>	
+			{selectedChat ? (
+				<Chat 
+					chatID={selectedChat} 
+					onBack={() => setSelectedChat(null)} 
+				/>
+			):(
+				conversations.length > 0 ? (
+					conversations.map((conversation) => (
+						<ChatListCard
+							key={conversation.id}
+							chatID={conversation.id}
+							skill={conversation.chatTitle}
+							chatWith={conversation.chatWith}
+							onSelect={() => setSelectedChat(conversation.id)}
+						/>
+					))
+				) : (
+					<Typography
+						variant="h6"
+						sx={{
+							color: "#ffffff",
+							textAlign: "center",
+							marginTop: "20px",
+						}}
+					>
+						No {type === "learn" ? "learning" : "teaching"}{" "}
+						conversations found!
+					</Typography>
+				)
 			)}
 		</Box>
 	);
