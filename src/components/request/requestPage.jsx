@@ -5,19 +5,24 @@ import { getRequestsAPI } from "../../services/requestAPI";
 
 const RequestPage = () => {
 	const [requests, setRequests] = useState([]);
-
-	const fetchRequests = async () => {
-		try {
-			const response = await getRequestsAPI();
-			if (response.status === "success") {
-				setRequests(response.data.requests);
-			}
-		} catch (error) {
-			console.error("Error fetching requests:", error);
-		}
-	};
+	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
+		const fetchRequests = async () => {
+			try {
+				setIsLoading(true);
+	
+				const response = await getRequestsAPI();
+				if (response.status === "success") {
+					setRequests(response.data.requests);
+				}
+			} catch (error) {
+				console.error("Error fetching requests:", error);
+			} finally{
+				setIsLoading(false);
+			}
+		};
+
 		fetchRequests();
 	}, []);
 
@@ -26,6 +31,10 @@ const RequestPage = () => {
 			prevRequests.filter((request) => request.id !== requestId)
 		);
 	};
+
+	if (isLoading) {
+		return <div className="p-4 text-center">Loading requests...</div>;
+	}
 
 	return (
 		<Box
@@ -60,7 +69,7 @@ const RequestPage = () => {
 						marginTop: "20px",
 					}}
 				>
-					No requests found.
+					No requests found!
 				</Typography>
 			)}
 		</Box>

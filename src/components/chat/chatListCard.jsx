@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
 
-const ConversationCard = ({ skill, chatWith, onSelect }) => {
+const ChatListCard = ({ skill, chatWith, onSelect, isSelected }) => {
 	return (
 		<Box
 			onClick={onSelect}
@@ -11,7 +11,9 @@ const ConversationCard = ({ skill, chatWith, onSelect }) => {
 				width: "100%",
 				maxWidth: "600px",
 				padding: "20px",
-				backgroundColor: "rgba(255, 255, 255, 0.2)",
+				backgroundColor: isSelected
+					? "rgba(255, 255, 255, 0.3)"
+					: "rgba(255, 255, 255, 0.2)",
 				backdropFilter: "blur(10px)",
 				marginBottom: "15px",
 				borderRadius: "12px",
@@ -21,21 +23,20 @@ const ConversationCard = ({ skill, chatWith, onSelect }) => {
 				transition: "transform 0.2s, background-color 0.2s",
 			}}
 			onMouseEnter={(e) =>
+				!isSelected &&
 				(e.currentTarget.style.backgroundColor =
 					"rgba(255, 255, 255, 0.3)")
 			}
 			onMouseLeave={(e) =>
+				!isSelected &&
 				(e.currentTarget.style.backgroundColor =
 					"rgba(255, 255, 255, 0.2)")
 			}
 			onMouseDown={(e) =>
 				(e.currentTarget.style.transform = "scale(0.97)")
 			}
-			onMouseUp={(e) =>
-				(e.currentTarget.style.transform = "scale(1.0)")
-			}
+			onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1.0)")}
 		>
-			{/* Top Section */}
 			<Box
 				display="flex"
 				justifyContent="space-between"
@@ -63,11 +64,11 @@ const ConversationCard = ({ skill, chatWith, onSelect }) => {
 	);
 };
 
-// Prop Validations
-ConversationCard.propTypes = {
+ChatListCard.propTypes = {
 	skill: PropTypes.string.isRequired,
 	chatWith: PropTypes.string.isRequired,
 	onSelect: PropTypes.func.isRequired,
+	isSelected: PropTypes.bool,
 };
 
-export default ConversationCard;
+export default ChatListCard;
