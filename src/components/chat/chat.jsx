@@ -33,9 +33,7 @@ const Chat = ({ chatID, onBack }) => {
 	};
 
 	useEffect(() => {
-		socketRef.current = io(
-			import.meta.env.VITE_API_URL.slice(0, -4) || "http://localhost:3000"
-		);
+		socketRef.current = io(import.meta.env.VITE_API_URL.slice(0, -4));
 
 		socketRef.current.emit("join-room", chatID);
 
@@ -118,11 +116,11 @@ const Chat = ({ chatID, onBack }) => {
 	return (
 		<Box
 			sx={{
-				height: "100vh",
+				height: "90vh",
 				width: "100%",
 				display: "flex",
 				flexDirection: "column",
-				bgcolor: "background.default",
+				bgcolor: "rgba(0, 0, 0, 0.2)",
 			}}
 		>
 			{/* Header */}
@@ -131,7 +129,7 @@ const Chat = ({ chatID, onBack }) => {
 					p: 2,
 					bgcolor: "rgba(255, 255, 255, 0.2)",
 					backdropFilter: "blur(10px)",
-					borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+					borderBottom: "1px solid rgba(255, 255, 255, 0.4)",
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
@@ -173,7 +171,7 @@ const Chat = ({ chatID, onBack }) => {
 						sx={{
 							height: 8,
 							borderRadius: 4,
-							backgroundColor: "rgba(255, 255, 255, 0.1)",
+							backgroundColor: "rgba(255, 255, 255, 0.6)",
 							"& .MuiLinearProgress-bar": {
 								backgroundColor: "primary.main",
 							},
@@ -205,8 +203,8 @@ const Chat = ({ chatID, onBack }) => {
 									: "flex-start",
 							bgcolor:
 								message.sender === currentUserId
-									? "primary.main"
-									: "grey.800",
+									? "rgb(6, 166, 194)"
+									: "rgb(79, 77, 77)",
 							color: "white",
 							borderRadius: 2,
 						}}
@@ -265,16 +263,16 @@ const Chat = ({ chatID, onBack }) => {
 								borderColor: "rgba(255, 255, 255, 0.5)",
 							},
 							"&.Mui-focused fieldset": {
-								borderColor: "primary.main",
+								borderColor: "rgb(6, 166, 194)",
 							},
 						},
 					}}
 				/>
 				<IconButton
 					type="submit"
-					color="primary"
+					color="white"
 					sx={{
-						bgcolor: "primary.main",
+						bgcolor: "rgb(6, 166, 194)",
 						"&:hover": {
 							bgcolor: "primary.dark",
 						},
