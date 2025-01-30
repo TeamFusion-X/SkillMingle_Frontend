@@ -12,7 +12,7 @@ import {
 	DialogTitle,
 	DialogContent,
 } from "@mui/material";
-import { Chat as ChatIcon, Close as CloseIcon } from "@mui/icons-material";
+import { Bot, X as Close } from "lucide-react";
 import { useSelector } from "react-redux";
 import QueryBot from "../queryBot/queryBot";
 
@@ -128,16 +128,16 @@ const Dashboard = () => {
 					"&:hover": {
 						transform: "scale(1.1)",
 					},
-					backgroundColor: "rgba(255, 255, 255, 0.1)", // Glass background
-					backdropFilter: "blur(10px)", // Adds blur effect for glass look
+					backgroundColor: "rgba(255, 255, 255, 0.1)", 
+					backdropFilter: "blur(10px)", 
 					px: 3,
-					textTransform: "none", // Prevents text capitalization
-					color: "#fff", // Ensures text is visible on glass background
-					boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)", // Adds subtle shadow
+					textTransform: "none", 
+					color: "#fff", 
+					boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)", 
 				}}
 				onClick={handleChatOpen}
 			>
-				<ChatIcon sx={{ mr: 1 }} />
+				<Bot className="mr-2"/>
 				Ask query..
 			</Fab>
 
@@ -172,7 +172,7 @@ const Dashboard = () => {
 						Query Bot
 					</Typography>
 					<IconButton onClick={handleChatClose} size="small">
-						<CloseIcon />
+						<Close color="rgb(255, 255, 255)"/>
 					</IconButton>
 				</DialogTitle>
 				<DialogContent>

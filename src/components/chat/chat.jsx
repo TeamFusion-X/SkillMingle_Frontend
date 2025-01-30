@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import {
 	Box,
+	Button,
 	TextField,
 	IconButton,
 	Typography,
@@ -10,13 +11,17 @@ import {
 	LinearProgress,
 	Avatar,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { CircleArrowLeft, ArrowUpWideNarrow, Send } from "lucide-react";
 import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
-import { getChatAPI } from "../../services/chatAPI";
+import { getChatAPI, increaseSkillProgressAPI } from "../../services/chatAPI";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Chat = ({ chatID, onBack }) => {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const isTeacher = location.pathname.includes("/teach");
+
 	const currentUserId = useSelector((state) => state.user._id);
 
 	const [messages, setMessages] = useState([]);
@@ -98,6 +103,32 @@ const Chat = ({ chatID, onBack }) => {
 		}
 	};
 
+	const handleUsernameClick = () => {
+		if (otherParticipant?.name) {
+			const url = `/about/${encodeURIComponent(
+				otherParticipant.username
+			)}`;
+			navigate(url);
+		}
+	};
+
+	const handleIncreaseSkill = async () => {
+		try {
+			const response = await increaseSkillProgressAPI(chatID);
+			if (response.status === "success") {
+				setChatData((prevData) => ({
+					...prevData,
+					skillProgress: Math.min(
+						(prevData.skillProgress || 0) + 10,
+						100
+					),
+				}));
+			}
+		} catch (error) {
+			console.error("Error increasing skill progress:", error);
+		}
+	};
+
 	if (isLoading) {
 		return (
 			<Box
@@ -133,12 +164,24 @@ const Chat = ({ chatID, onBack }) => {
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-					<IconButton onClick={onBack} sx={{ color: "white", mr: 2 }}>
-						<ArrowBackIcon />
+					<IconButton
+						onClick={onBack}
+						size="small"
+						sx={{
+							color: "rgb(0, 160, 190)",
+							"&:hover": {
+								bgcolor: "rgb(121, 121, 121)",
+							},
+						}}
+						title="Back"
+					>
+						<CircleArrowLeft/>
 					</IconButton>
+
 					<Typography variant="h6" sx={{ color: "white", mr: 2 }}>
-						{chatData?.chatTitle}
+						{isTeacher ? "Teach " : "Learn "}{chatData?.chatTitle}
 					</Typography>
+
 					{otherParticipant && (
 						<Box
 							sx={{
@@ -153,7 +196,16 @@ const Chat = ({ chatID, onBack }) => {
 							>
 								{otherParticipant.name?.charAt(0)}
 							</Avatar>
-							<Typography sx={{ color: "white" }}>
+							<Typography
+								onClick={handleUsernameClick}
+								sx={{
+									color: "white",
+									cursor: "pointer",
+									"&:hover": {
+										textDecoration: "underline",
+									},
+								}}
+							>
 								{otherParticipant.name}
 							</Typography>
 						</Box>
@@ -162,9 +214,33 @@ const Chat = ({ chatID, onBack }) => {
 
 				{/* Skill Progress Bar */}
 				<Box sx={{ px: 2 }}>
-					<Typography variant="body2" sx={{ color: "white", mb: 1 }}>
-						Skill Progress: {chatData?.skillProgress}%
-					</Typography>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "space-between",
+							mb: 1,
+						}}
+					>
+						<Typography variant="body2" sx={{ color: "white" }}>
+							Skill Progress: {chatData?.skillProgress}%
+						</Typography>
+						{isTeacher && (
+							<IconButton
+								onClick={handleIncreaseSkill}
+								size="small"
+								sx={{
+									color: "rgb(0, 160, 190)",
+									"&:hover": {
+										bgcolor: "rgba(121, 121, 121)",
+									},
+								}}
+								title="Increase progress"
+							>
+								<ArrowUpWideNarrow/>
+							</IconButton>
+						)}
+					</Box>
 					<LinearProgress
 						variant="determinate"
 						value={chatData?.skillProgress || 0}
@@ -173,7 +249,7 @@ const Chat = ({ chatID, onBack }) => {
 							borderRadius: 4,
 							backgroundColor: "rgba(255, 255, 255, 0.6)",
 							"& .MuiLinearProgress-bar": {
-								backgroundColor: "primary.main",
+								backgroundColor: "rgb(0, 160, 190)",
 							},
 						}}
 					/>
@@ -203,8 +279,8 @@ const Chat = ({ chatID, onBack }) => {
 									: "flex-start",
 							bgcolor:
 								message.sender === currentUserId
-									? "rgb(6, 166, 194)"
-									: "rgb(79, 77, 77)",
+									? "rgb(0, 160, 190)"
+									: "rgb(77, 77, 77)",
 							color: "white",
 							borderRadius: 2,
 						}}
@@ -250,7 +326,7 @@ const Chat = ({ chatID, onBack }) => {
 				<TextField
 					fullWidth
 					variant="outlined"
-					placeholder="Type a message..."
+					placeholder="Message..."
 					value={newMessage}
 					onChange={(e) => setNewMessage(e.target.value)}
 					sx={{
@@ -263,23 +339,24 @@ const Chat = ({ chatID, onBack }) => {
 								borderColor: "rgba(255, 255, 255, 0.5)",
 							},
 							"&.Mui-focused fieldset": {
-								borderColor: "rgb(6, 166, 194)",
+								borderColor: "rgb(0, 160, 190)",
 							},
 						},
 					}}
 				/>
-				<IconButton
+				<Button
 					type="submit"
-					color="white"
+					variant="contained"
+					disabled={!newMessage.trim()}
 					sx={{
-						bgcolor: "rgb(6, 166, 194)",
-						"&:hover": {
-							bgcolor: "primary.dark",
-						},
+						minWidth: "50px",
+						height: "56px",
+						borderRadius: "8px",
+						backgroundColor: "rgb(0, 160, 190)"
 					}}
 				>
-					<SendIcon />
-				</IconButton>
+					<Send/>
+				</Button>
 			</Box>
 		</Box>
 	);

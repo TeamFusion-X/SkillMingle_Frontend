@@ -7,7 +7,7 @@ import {
 	InputAdornment,
 	IconButton,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { UserSearch, SearchCode } from "lucide-react";
 import { searchSkillsAPI } from "../../services/searchAPI";
 import { useNavigate } from "react-router-dom";
 
@@ -17,9 +17,11 @@ const SearchPage = () => {
 	const [matchedUsers, setMatchedUsers] = useState([]);
 	const [searchedSkill, setSearchedSkill] = useState("");
 	const [searchUserQuery, setSearchUserQuery] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSearch = async () => {
 		try {
+			setIsLoading(true);
 			const response = await searchSkillsAPI(searchQuery);
 			if (response.status === "success") {
 				setMatchedUsers(response.rankedUsers);
@@ -28,6 +30,8 @@ const SearchPage = () => {
 		} catch (error) {
 			setMatchedUsers([]);
 			console.error("Error searching:", error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -43,6 +47,14 @@ const SearchPage = () => {
 			action();
 		}
 	};
+
+	if (isLoading) {
+		return (
+			<div className="p-4 text-center">
+				Searchig users who teach <strong>{searchQuery}</strong>...
+			</div>
+		);
+	}
 
 	return (
 		<Box
@@ -95,7 +107,7 @@ const SearchPage = () => {
 										},
 									}}
 								>
-									<SearchIcon />
+									<SearchCode/>
 								</IconButton>
 							</InputAdornment>
 						),
@@ -133,7 +145,7 @@ const SearchPage = () => {
 										},
 									}}
 								>
-									<SearchIcon />
+									<UserSearch/>
 								</IconButton>
 							</InputAdornment>
 						),
@@ -157,9 +169,9 @@ const SearchPage = () => {
 					height: "80vh",
 					overflowY: "auto",
 					padding: "20px",
-					display: "flex", 
-					justifyContent: "center", 
-					alignItems: "flex-start", 
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "flex-start",
 				}}
 			>
 				<Box
@@ -167,11 +179,11 @@ const SearchPage = () => {
 						marginTop: "10px",
 						height: "calc(100% - 50px)",
 						overflowY: "scroll",
-						display: "flex", 
-						flexDirection: "column", 
-						alignItems: "center", 
-						width: "100%", 
-						maxWidth: "600px", 
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "center",
+						width: "100%",
+						maxWidth: "600px",
 					}}
 				>
 					{matchedUsers.length > 0 ? (
