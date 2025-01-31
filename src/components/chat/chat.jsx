@@ -148,7 +148,8 @@ const Chat = ({ chatID, onBack }) => {
 		<Box
 			sx={{
 				height: "90vh",
-				width: "100%",
+				minWidth: "90vw",
+				maxWidth: "90vw",
 				display: "flex",
 				flexDirection: "column",
 				bgcolor: "rgba(0, 0, 0, 0.2)",
@@ -283,9 +284,13 @@ const Chat = ({ chatID, onBack }) => {
 									: "rgb(77, 77, 77)",
 							color: "white",
 							borderRadius: 2,
+							wordWrap: "break-word",
+							overflowWrap: "break-word",
+							whiteSpace: "pre-wrap",
+							minWidth: 0, // This helps with flexbox content wrapping
 						}}
 					>
-						<Typography>{message.content}</Typography>
+						<Typography sx={{ wordBreak: "break-word" }}>{message.content}</Typography>
 						<Typography
 							variant="caption"
 							sx={{

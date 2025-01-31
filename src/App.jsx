@@ -4,7 +4,7 @@ import Signup from "./components/auth/signup";
 import Login from "./components/auth/login";
 import ForgotPassword from "./components/auth/forgotPassword";
 import ResetPassword from "./components/auth/resetPassword";
-import About from "./components/misc/about";
+import About from "./components/about/about";
 import DashBoard from "./components/dashboard/dashBoard";
 import NavbarLP from "./components/landingPage/navbarLP";
 import NavbarDB from "./components/dashboard/navbarDB";

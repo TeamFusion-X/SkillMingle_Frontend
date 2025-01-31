@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
-import backgroundImage from "../assets/backgroundImage.jpeg"; // Import the background image
+import backgroundImage from "../assets/backgroundImage.jpeg";
 
 export const BackgroundBox = styled(Box)(() => ({
 	display: "flex",

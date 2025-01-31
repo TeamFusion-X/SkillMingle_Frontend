@@ -64,6 +64,7 @@ const ShowChatList = ({ type }) => {
 				gap: "10px",
 				minHeight: "100vh",
 				minWidth: "70vw",
+				maxWidth: "90vw",
 				backgroundColor: "transparent",
 			}}
 		>	
