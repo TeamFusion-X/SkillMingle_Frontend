@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LandingPage from "./components/landingPage/landingPage";
 import Signup from "./components/auth/signup";
 import Login from "./components/auth/login";
@@ -16,12 +16,13 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { checkLogin } from "./redux/actions/authActions";
 import Profile from "./components/user/profile";
-import RequestPage from "./components/request/requestPage"
+import RequestPage from "./components/request/requestPage";
 import LearningChats from "./components/chat/learn/learningChats";
 import TeachingChats from "./components/chat/teach/teachingChats";
 import SearchPage from "./components/search/searchPage";
 import Notification from "./components/notification/notification";
-
+import { checkServerAPI } from "./services/authAPI";
+import ServerWaitCard from "./utils/serverWaitCard";
 
 const UnauthenticatedRoutes = () => (
 	<BackgroundBox>
@@ -59,18 +60,52 @@ const AuthenticatedRoutes = () => (
 function App() {
 	const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 	const loading = useSelector((state) => state.spinner.loading);
-	
+	const [serverReady, setServerReady] = useState(false);
+	const [attempts, setAttempts] = useState(0);
+
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(checkLogin());	
-	}, [dispatch])
+		if (attempts >= 3) {
+			return;
+		}
+
+		const checkServer = async () => {
+			try {
+				const response = await checkServerAPI();
+				console.log(response);
+				if (response.status === "success") {
+					setServerReady(true);
+				} else {
+					setAttempts((prev) => prev + 1);
+				}
+			} catch {
+				setAttempts((prev) => prev + 1);
+			}
+		};
+
+		const timeoutId = setTimeout(checkServer, attempts > 0 ? 30000 : 0);
+
+		return () => clearTimeout(timeoutId);
+	}, [attempts]);
+
+	useEffect(() => {
+		if (serverReady) {
+			dispatch(checkLogin());
+		}
+	}, [serverReady, dispatch]);
 
 	return (
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
-			{loading && <Spinner />}
-			{isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+			<BackgroundBox>
+				{!serverReady ? <ServerWaitCard/> : (
+					<>
+						{loading && <Spinner />}
+						{isLoggedIn ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
+					</>
+				)}
+			</BackgroundBox>
 		</ThemeProvider>
 	);
 }

@@ -66,6 +66,16 @@ export const checkLoginAPI = async () => {
 	}
 }
 
+export const checkServerAPI = async () => {
+	try {
+		const response = await axiosInstance.get("/hello");
+		return response.data;
+	} catch (error) {
+		if (error.response.data) error.message = error.response.data.message;
+		throw error;
+	}
+}
+
 export const logoutUserAPI = async () => {
     try {
         const response = await axiosInstance.get("/users/logout");
